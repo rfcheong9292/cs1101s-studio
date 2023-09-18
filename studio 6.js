@@ -24,18 +24,19 @@ function makeup_amount(x, coins) {
         return null;
     } else {
 // Combinations that do not use the head coin.
-        const combi_A = makeup_amount(x, tail(coins));
+        const new_coins = filter(y => y <= x, coins);
+        const combi_A = makeup_amount(x, tail(new_coins));
 // Combinations that do not use the head coin
 // for the remaining amount.
-//        const combi_B = makeup_amount(x - head(coins), tail(coins));
-// Combinations that use the head coin.
-        const combi_C = pair(head(coins), makeup_amount(x - head(coins), tail(coins)));
+        const combi_B = makeup_amount(x - head(new_coins), tail(new_coins));
+// Combinations that use the head coin
+        const combi_C = pair(head(new_coins), combi_B);
         return append(combi_A, combi_C);
     }
 }
 
 
-makeup_amount(22, list(1, 10, 5, 20, 1, 5, 1, 50));
+display_list(makeup_amount(22, list(1, 10, 5, 20, 1, 5, 1, 50)));
 
 
 
